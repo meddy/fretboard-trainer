@@ -1,0 +1,34 @@
+.container {
+  display: grid;
+  margin: 1rem;
+  border-left: 10px solid black;
+  width: calc(100vw - 2rem - 10px);
+  height: 18vw;
+  /* https://www.stewmac.com/FretCalculator.html */
+  grid-template-columns: 1.4fr 1.32fr 1.25fr 1.18fr 1.11fr 1.05fr .99fr .93fr .88fr .83fr .78fr .74fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.fret {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+}
+
+.fret:nth-of-type(12n) {
+  border-right: none;
+}
+
+.fret:nth-of-type(n+49) {
+  border-bottom: 1px solid black;
+}
+
+.inlay {
+  width: 2vw;
+  height: 2vw;
+  background: black;
+  border-radius: 50%
+}
