@@ -1,0 +1,21 @@
+{
+  "extends": ["react-app"],
+  "plugins": ["simple-import-sort"],
+  "rules": {
+    "simple-import-sort/sort": ["error", {
+      "groups": [
+        // Packages. `react` related packages come first.
+        ["^react", "^@?\\w"],
+        // Internal packages.
+        ["^(@|@company|@ui|components|utils|config|vendored-lib)(/.*|$)"],
+        // Side effect imports.
+        ["^\\u0000"],
+        // Parent imports. Put `..` last.
+        ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+        // Other relative imports. Put same-folder imports and `.` last.
+        ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"]
+      ]
+    }],
+    "react/jsx-sort-props": 1
+  }
+}

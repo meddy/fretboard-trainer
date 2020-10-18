@@ -1,15 +1,16 @@
 .container {
-  display: flex;
-  width: 96vw;
-  margin: 2vw;
   align-items: center;
+  display: flex;
+  margin: 2vw;
+  width: 96vw;
 }
 
 .fretboard {
-  flex: 1;
   display: grid;
+  flex: 1;
+
   /* https://www.stewmac.com/FretCalculator.html */
-  grid-template-columns: .1fr 1.4fr 1.32fr 1.25fr 1.18fr 1.11fr 1.05fr .99fr .93fr .88fr .83fr .78fr .74fr;
+  grid-template-columns: 0.1fr 1.4fr 1.32fr 1.25fr 1.18fr 1.11fr 1.05fr 0.99fr 0.93fr 0.88fr 0.83fr 0.78fr 0.74fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   height: fit-content;
 }
@@ -19,13 +20,13 @@
 }
 
 .fret {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  border-top: 1px solid black;
   border-left: 2px solid black;
   border-right: 2px solid black;
+  border-top: 1px solid black;
+  display: flex;
   height: 2vw;
+  justify-content: center;
 }
 
 .fret:nth-of-type(13n) {
@@ -37,10 +38,10 @@
 }
 
 .inlay {
-  width: 1.75vw;
-  height: 1.75vw;
   background: black;
   border-radius: 50%;
+  height: 1.75vw;
+  width: 1.75vw;
 }
 
 .inlay-top {
@@ -49,32 +50,24 @@
 }
 
 .inlay-bottom {
-  position: relative;
   bottom: -50%;
+  position: relative;
 }
 
 .note {
-  width: 2vw;
-  height: 2vw;
   background: red;
   border-radius: 50%;
+  height: 2vw;
   position: relative;
   top: -50%;
+  width: 2vw;
 }
 
 .info {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  margin-right: 1vw;
   font-size: 1.5vw;
   height: 12.5vw;
-}
-
-.string-label:first-child {
-  /*margin-top: -0.5vw;*/
-}
-
-.string-label {
-  /*margin-bottom: 0.333vw;*/
+  justify-content: space-between;
+  margin-right: 1vw;
 }
