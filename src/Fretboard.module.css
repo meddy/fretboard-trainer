@@ -1,7 +1,7 @@
 .container {
   display: flex;
-  width: calc(100vw - 2rem);
-  margin: 1rem;
+  width: 96vw;
+  margin: 2vw;
   align-items: center;
 }
 
@@ -40,7 +40,7 @@
   width: 1.75vw;
   height: 1.75vw;
   background: black;
-  border-radius: 50%
+  border-radius: 50%;
 }
 
 .inlay-top {
@@ -66,7 +66,15 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 11.5vw;
-  margin-right: 0.5rem;
-  font-size: 1vw;
+  margin-right: 1vw;
+  font-size: 1.5vw;
+  height: 12.5vw;
+}
+
+.string-label:first-child {
+  /*margin-top: -0.5vw;*/
+}
+
+.string-label {
+  /*margin-bottom: 0.333vw;*/
 }

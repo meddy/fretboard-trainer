@@ -5,12 +5,12 @@ export default function Fretboard() {
   return (
     <div className={styles.container}>
         <div className={styles.info}>
-            <div className={styles.stringLabel}>(1) E</div>
-            <div className={styles.stringLabel}>(2) B</div>
-            <div className={styles.stringLabel}>(3) G</div>
-            <div className={styles.stringLabel}>(4) D</div>
-            <div className={styles.stringLabel}>(5) A</div>
-            <div className={styles.stringLabel}>(6) E</div>
+            <div className={styles['string-label']}>(1) E</div>
+            <div className={styles['string-label']}>(2) B</div>
+            <div className={styles['string-label']}>(3) G</div>
+            <div className={styles['string-label']}>(4) D</div>
+            <div className={styles['string-label']}>(5) A</div>
+            <div className={styles['string-label']}>(6) E</div>
         </div>
   <div className={styles.fretboard}>
       <div className={styles.nut} />
