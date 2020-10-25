@@ -28,8 +28,12 @@ export default function Fretboard() {
         <div className={styles.fret} />
         <div className={styles.fret} />
         <div className={styles.fret} />
-        <div className={styles.fret} />
-        <div className={styles.fret} />
+        <div className={styles.fret}>
+          <div className={styles.note} />
+        </div>
+        <div className={styles.fret}>
+          <div className={styles.note} />
+        </div>
         {/* 2nd */}
         <div className={styles.nut} />
         <div className={styles.fret} />
