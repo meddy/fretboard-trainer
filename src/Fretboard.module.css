@@ -66,8 +66,13 @@
 .info {
   display: flex;
   flex-direction: column;
+  font-family: monospace;
   font-size: 1.5vw;
-  height: 12.5vw;
   justify-content: space-between;
+  line-height: 140%;
   margin-right: 1vw;
+}
+
+.info-note {
+  font-weight: bold;
 }
