@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.container > * {
+  margin-right: 1vw;
+}
+
+.container > *:last-child {
+  margin-right: 0;
+}

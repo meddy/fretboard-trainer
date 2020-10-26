@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Button, ButtonGroup, Form } from "reactstrap";
+import { Button, ButtonGroup } from "reactstrap";
+
+import styles from "./NoteSelector.module.css";
 
 enum Note {
   A = "A",
@@ -21,8 +23,8 @@ export default function NoteSelector() {
   const [accidental, setAccidental] = useState<Accidental | null>(null);
 
   return (
-    <Form inline>
-      <ButtonGroup>
+    <div className={styles.container}>
+      <ButtonGroup className={styles["note-group"]}>
         <Button
           active={note === Note.A}
           onClick={() => setSelectedNote(Note.A)}
@@ -80,6 +82,7 @@ export default function NoteSelector() {
           &#9837;
         </Button>
       </ButtonGroup>
-    </Form>
+      <Button color="success">Next</Button>
+    </div>
   );
 }
