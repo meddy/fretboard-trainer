@@ -19,6 +19,10 @@
   background: black;
 }
 
+.nut.open-note {
+  background: red;
+}
+
 .fret {
   align-items: center;
   border-left: 2px solid black;
@@ -56,11 +60,10 @@
 
 .note {
   background: red;
-  border-radius: 50%;
-  height: 2vw;
+  height: 1.5vw;
   position: relative;
   top: -50%;
-  width: 2vw;
+  width: 1.5vw;
 }
 
 .info {
