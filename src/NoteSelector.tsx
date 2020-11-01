@@ -18,7 +18,11 @@ enum Accidental {
   FLAT = "flat",
 }
 
-export default function NoteSelector() {
+interface NoteSelectorProps {
+  onNext: () => void;
+}
+
+export default function NoteSelector(props: NoteSelectorProps) {
   const [note, setSelectedNote] = useState<Note | null>(null);
   const [accidental, setAccidental] = useState<Accidental | null>(null);
 
@@ -82,7 +86,9 @@ export default function NoteSelector() {
           &#9837;
         </Button>
       </ButtonGroup>
-      <Button color="success">Next</Button>
+      <Button color="success" onClick={props.onNext}>
+        Next
+      </Button>
     </div>
   );
 }

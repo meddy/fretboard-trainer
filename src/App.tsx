@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import styles from "./App.module.css";
 import Fretboard from "./Fretboard";
@@ -18,10 +18,15 @@ function randomNotePosition() {
 }
 
 function App() {
+  const [position, setPosition] = useState(randomNotePosition());
   return (
     <div className={styles.container}>
-      <Fretboard {...randomNotePosition()} />
-      <NoteSelector />
+      <Fretboard {...position} />
+      <NoteSelector
+        onNext={() => {
+          setPosition(randomNotePosition());
+        }}
+      />
     </div>
   );
 }
