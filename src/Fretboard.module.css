@@ -19,10 +19,6 @@
   background: black;
 }
 
-.nut.open-note {
-  background: red;
-}
-
 .fret {
   align-items: center;
   border-left: 2px solid black;
@@ -31,6 +27,15 @@
   display: flex;
   height: 2vw;
   justify-content: center;
+}
+
+.fret.open-note {
+  border-top: 1px solid red;
+}
+
+.fret.sixth-string-open-note {
+  border-bottom: 1px solid red !important;
+  border-top: 1px solid black;
 }
 
 .fret:nth-of-type(13n) {
@@ -64,6 +69,10 @@
   position: relative;
   top: -50%;
   width: 1.5vw;
+}
+
+.sixth-string-note {
+  top: 50%;
 }
 
 .info {

@@ -46,9 +46,8 @@ export default function Fretboard(props: FretboardProps) {
       <div className={styles.fretboard}>
         {rows.map((row) =>
           columns.map((column) => {
-            const match =
-              fret === column &&
-              (string === row || (string === 6 && row === 5));
+            const stringMatch = string === row || (string === 6 && row === 5);
+            const match = fret === column && stringMatch;
             const key = `${row}-${column}`;
 
             // open string notes
@@ -57,9 +56,7 @@ export default function Fretboard(props: FretboardProps) {
                 <div
                   className={clsx({
                     [styles.nut]: true,
-                    [styles.note]: match,
-                    [styles["open-note"]]: match,
-                    [styles["sixth-string-note"]]: string === 6,
+                    [styles.note]: match && fret !== 0,
                   })}
                   key={key}
                 />
@@ -70,12 +67,20 @@ export default function Fretboard(props: FretboardProps) {
               (inlay) => row === inlay.row && column === inlay.column
             );
             return (
-              <div className={styles.fret} key={key}>
+              <div
+                className={clsx({
+                  [styles.fret]: true,
+                  [styles["open-note"]]: stringMatch && fret === 0,
+                  [styles["sixth-string-open-note"]]:
+                    stringMatch && string === 6 && fret === 0,
+                })}
+                key={key}
+              >
                 {match && (
                   <div
                     className={clsx({
                       [styles.note]: true,
-                      [styles["sixth-string-note"]]: props.string === 6,
+                      [styles["sixth-string-note"]]: string === 6,
                     })}
                   />
                 )}
