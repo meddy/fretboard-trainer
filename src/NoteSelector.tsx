@@ -3,7 +3,7 @@ import { Button, ButtonGroup } from "reactstrap";
 
 import styles from "./NoteSelector.module.css";
 
-enum Note {
+enum Name {
   A = "A",
   B = "B",
   C = "C",
@@ -20,73 +20,151 @@ enum Accidental {
 
 interface NoteSelectorProps {
   onNext: () => void;
+  string: number;
+  fret: number;
 }
 
+interface Note {
+  name: Name;
+  accidental: Accidental | null;
+}
+
+const strings = [
+  { name: Name.E, accidental: null },
+  { name: Name.B, accidental: null },
+  { name: Name.G, accidental: null },
+  { name: Name.D, accidental: null },
+  { name: Name.A, accidental: null },
+  { name: Name.E, accidental: null },
+];
+
+const chromaticScale: Note[][] = [
+  [{ name: Name.A, accidental: null }],
+  [
+    { name: Name.A, accidental: Accidental.SHARP },
+    { name: Name.B, accidental: Accidental.FLAT },
+  ],
+  [{ name: Name.B, accidental: null }],
+  [{ name: Name.C, accidental: null }],
+  [
+    { name: Name.C, accidental: Accidental.SHARP },
+    { name: Name.D, accidental: Accidental.FLAT },
+  ],
+  [{ name: Name.D, accidental: null }],
+  [
+    { name: Name.D, accidental: Accidental.SHARP },
+    { name: Name.E, accidental: Accidental.FLAT },
+  ],
+  [{ name: Name.E, accidental: null }],
+  [{ name: Name.F, accidental: null }],
+  [
+    { name: Name.F, accidental: Accidental.SHARP },
+    { name: Name.G, accidental: Accidental.FLAT },
+  ],
+  [{ name: Name.G, accidental: null }],
+  [
+    { name: Name.G, accidental: Accidental.SHARP },
+    { name: Name.A, accidental: Accidental.FLAT },
+  ],
+];
+
 export default function NoteSelector(props: NoteSelectorProps) {
-  const [note, setSelectedNote] = useState<Note | null>(null);
-  const [accidental, setAccidental] = useState<Accidental | null>(null);
+  const { string, fret, onNext } = props;
+  const [selectedName, setSelectedName] = useState<Name | null>(null);
+  const [selectedAccidental, setAccidental] = useState<Accidental | null>(null);
+
+  let stringNote = strings[string];
+  const stringIndex = chromaticScale.findIndex((notes) => {
+    for (const note of notes) {
+      if (
+        note.name === stringNote.name &&
+        note.accidental === stringNote.accidental
+      ) {
+        return true;
+      }
+    }
+
+    return false;
+  });
+
+  const index = (stringIndex + fret) % chromaticScale.length;
+  let notes = chromaticScale[index];
+  console.log(notes);
+
+  const match = notes.find(
+    (note: Note) =>
+      note.name === selectedName && note.accidental === selectedAccidental
+  );
 
   return (
     <div className={styles.container}>
       <ButtonGroup className={styles["note-group"]}>
         <Button
-          active={note === Note.A}
-          onClick={() => setSelectedNote(Note.A)}
+          active={selectedName === Name.A}
+          onClick={() => setSelectedName(Name.A)}
         >
-          {Note.A}
+          {Name.A}
         </Button>
         <Button
-          active={note === Note.B}
-          onClick={() => setSelectedNote(Note.B)}
+          active={selectedName === Name.B}
+          onClick={() => setSelectedName(Name.B)}
         >
-          {Note.B}
+          {Name.B}
         </Button>
         <Button
-          active={note === Note.C}
-          onClick={() => setSelectedNote(Note.C)}
+          active={selectedName === Name.C}
+          onClick={() => setSelectedName(Name.C)}
         >
-          {Note.C}
+          {Name.C}
         </Button>
         <Button
-          active={note === Note.D}
-          onClick={() => setSelectedNote(Note.D)}
+          active={selectedName === Name.D}
+          onClick={() => setSelectedName(Name.D)}
         >
-          {Note.D}
+          {Name.D}
         </Button>
         <Button
-          active={note === Note.E}
-          onClick={() => setSelectedNote(Note.E)}
+          active={selectedName === Name.E}
+          onClick={() => setSelectedName(Name.E)}
         >
-          {Note.E}
+          {Name.E}
         </Button>
         <Button
-          active={note === Note.F}
-          onClick={() => setSelectedNote(Note.F)}
+          active={selectedName === Name.F}
+          onClick={() => setSelectedName(Name.F)}
         >
-          {Note.F}
+          {Name.F}
         </Button>
         <Button
-          active={note === Note.G}
-          onClick={() => setSelectedNote(Note.G)}
+          active={selectedName === Name.G}
+          onClick={() => setSelectedName(Name.G)}
         >
-          {Note.G}
+          {Name.G}
         </Button>
       </ButtonGroup>
       <ButtonGroup>
         <Button
-          active={accidental === Accidental.SHARP}
+          active={selectedAccidental === Accidental.SHARP}
           onClick={() => setAccidental(Accidental.SHARP)}
         >
           &#9839;
         </Button>
         <Button
-          active={accidental === Accidental.FLAT}
+          active={selectedAccidental === Accidental.FLAT}
           onClick={() => setAccidental(Accidental.FLAT)}
         >
           &#9837;
         </Button>
       </ButtonGroup>
-      <Button color="success" onClick={props.onNext}>
+      <Button
+        color="success"
+        disabled={!match}
+        onClick={() => {
+          if (match) {
+            onNext();
+          }
+        }}
+      >
         Next
       </Button>
     </div>

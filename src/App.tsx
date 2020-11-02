@@ -26,6 +26,7 @@ function App() {
         onNext={() => {
           setPosition(randomNotePosition());
         }}
+        {...position}
       />
     </div>
   );
