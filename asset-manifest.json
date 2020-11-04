@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/fretboard-trainer/static/css/main.c955b9a6.chunk.css",
-    "main.js": "/fretboard-trainer/static/js/main.b3960660.chunk.js",
-    "main.js.map": "/fretboard-trainer/static/js/main.b3960660.chunk.js.map",
+    "main.js": "/fretboard-trainer/static/js/main.1f2fdafb.chunk.js",
+    "main.js.map": "/fretboard-trainer/static/js/main.1f2fdafb.chunk.js.map",
     "runtime-main.js": "/fretboard-trainer/static/js/runtime-main.e2afa23c.js",
     "runtime-main.js.map": "/fretboard-trainer/static/js/runtime-main.e2afa23c.js.map",
     "static/css/2.95f25948.chunk.css": "/fretboard-trainer/static/css/2.95f25948.chunk.css",
@@ -18,6 +18,6 @@
     "static/css/2.95f25948.chunk.css",
     "static/js/2.9a101a57.chunk.js",
     "static/css/main.c955b9a6.chunk.css",
-    "static/js/main.b3960660.chunk.js"
+    "static/js/main.1f2fdafb.chunk.js"
   ]
 }
