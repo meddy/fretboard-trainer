@@ -27,6 +27,7 @@
   display: flex;
   height: 2vw;
   justify-content: center;
+  position: relative;
 }
 
 .fret.open-note {
@@ -66,9 +67,10 @@
 .note {
   background: red;
   height: 1.5vw;
-  position: relative;
+  position: absolute;
   top: -50%;
   width: 1.5vw;
+  z-index: 1;
 }
 
 .sixth-string-note {
