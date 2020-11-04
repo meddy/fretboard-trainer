@@ -173,6 +173,7 @@ export default function NoteSelector(props: NoteSelectorProps) {
       </ButtonGroup>
       <Button
         color={isWrong ? "danger" : "success"}
+        disabled={selectedName === null}
         onClick={() => {
           if (match) {
             onNext();
@@ -184,7 +185,7 @@ export default function NoteSelector(props: NoteSelectorProps) {
           }
         }}
       >
-        Next
+        Check
       </Button>
     </div>
   );
