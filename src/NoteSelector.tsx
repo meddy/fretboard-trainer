@@ -72,6 +72,7 @@ export default function NoteSelector(props: NoteSelectorProps) {
   const { string, fret, onNext } = props;
   const [selectedName, setSelectedName] = useState<Name | null>(null);
   const [selectedAccidental, setAccidental] = useState<Accidental | null>(null);
+  const [isWrong, setIsWrong] = useState<boolean>(false);
 
   let stringNote = strings[string - 1];
   const stringIndex = chromaticScale.findIndex((notes) => {
@@ -145,32 +146,41 @@ export default function NoteSelector(props: NoteSelectorProps) {
         <Button
           active={selectedAccidental === Accidental.SHARP}
           onClick={() => {
-            setAccidental(
-              selectedAccidental === Accidental.SHARP ? null : Accidental.SHARP
-            );
+            setAccidental(Accidental.SHARP);
           }}
+          title="Sharp"
         >
           &#9839;
         </Button>
         <Button
           active={selectedAccidental === Accidental.FLAT}
           onClick={() => {
-            setAccidental(
-              selectedAccidental === Accidental.FLAT ? null : Accidental.FLAT
-            );
+            setAccidental(Accidental.FLAT);
           }}
+          title="Flat"
         >
           &#9837;
         </Button>
+        <Button
+          active={selectedAccidental === null}
+          onClick={() => {
+            setAccidental(null);
+          }}
+          title="Natural"
+        >
+          &#9838;
+        </Button>
       </ButtonGroup>
       <Button
-        color="success"
-        disabled={!match}
+        color={isWrong ? "danger" : "success"}
         onClick={() => {
           if (match) {
             onNext();
             setSelectedName(null);
             setAccidental(null);
+            setIsWrong(false);
+          } else {
+            setIsWrong(true);
           }
         }}
       >
