@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Progress } from "reactstrap";
 
 import styles from "./App.module.css";
 import Fretboard from "./Fretboard";
@@ -19,6 +20,7 @@ function randomNotePosition() {
 
 function App() {
   const [position, setPosition] = useState(randomNotePosition());
+  const [started, setStarted] = useState<boolean>(false);
   return (
     <div className={styles.container}>
       <Fretboard {...position} />
@@ -26,8 +28,11 @@ function App() {
         onNext={() => {
           setPosition(randomNotePosition());
         }}
+        onStart={() => setStarted(true)}
+        started={started}
         {...position}
       />
+      <Progress value={100} />
     </div>
   );
 }

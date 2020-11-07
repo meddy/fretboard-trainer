@@ -22,6 +22,8 @@ interface NoteSelectorProps {
   onNext: () => void;
   string: number;
   fret: number;
+  started: boolean;
+  onStart: () => void;
 }
 
 interface Note {
@@ -69,7 +71,7 @@ const chromaticScale: Note[][] = [
 ];
 
 export default function NoteSelector(props: NoteSelectorProps) {
-  const { string, fret, onNext } = props;
+  const { string, fret, onNext, onStart, started } = props;
 
   const [selectedName, setSelectedName] = useState<Name | null>(null);
   const [selectedAccidental, setAccidental] = useState<Accidental | null>(null);
@@ -173,7 +175,7 @@ export default function NoteSelector(props: NoteSelectorProps) {
       </ButtonGroup>
       <Button
         color={isWrong ? "danger" : "success"}
-        disabled={selectedName === null}
+        disabled={selectedName === null || !started}
         onClick={() => {
           if (isMatch) {
             onNext();
@@ -188,6 +190,9 @@ export default function NoteSelector(props: NoteSelectorProps) {
       >
         Check&nbsp;
         <Badge color="primary">{score}</Badge>
+      </Button>
+      <Button color="primary" disabled={started} onClick={() => onStart()}>
+        Start
       </Button>
     </div>
   );
