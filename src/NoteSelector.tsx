@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, ButtonGroup } from "reactstrap";
 
 import styles from "./NoteSelector.module.css";
@@ -96,6 +96,17 @@ export default function NoteSelector(props: NoteSelectorProps) {
       note.name === selectedName && note.accidental === selectedAccidental
   );
 
+  useEffect(() => {
+    if (
+      (selectedName === Name.B && selectedAccidental === Accidental.SHARP) ||
+      (selectedName === Name.C && selectedAccidental === Accidental.FLAT) ||
+      (selectedName === Name.E && selectedAccidental === Accidental.SHARP) ||
+      (selectedName === Name.F && selectedAccidental === Accidental.FLAT)
+    ) {
+      setAccidental(null);
+    }
+  }, [selectedName, selectedAccidental]);
+
   return (
     <div className={styles.container}>
       <ButtonGroup className={styles["note-group"]}>
@@ -145,6 +156,7 @@ export default function NoteSelector(props: NoteSelectorProps) {
       <ButtonGroup>
         <Button
           active={selectedAccidental === Accidental.SHARP}
+          disabled={selectedName === Name.B || selectedName === Name.E}
           onClick={() => {
             setAccidental(Accidental.SHARP);
           }}
@@ -154,6 +166,7 @@ export default function NoteSelector(props: NoteSelectorProps) {
         </Button>
         <Button
           active={selectedAccidental === Accidental.FLAT}
+          disabled={selectedName === Name.C || selectedName === Name.F}
           onClick={() => {
             setAccidental(Accidental.FLAT);
           }}
