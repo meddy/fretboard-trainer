@@ -70,6 +70,7 @@ const chromaticScale: Note[][] = [
 
 export default function NoteSelector(props: NoteSelectorProps) {
   const { string, fret, onNext } = props;
+
   const [selectedName, setSelectedName] = useState<Name | null>(null);
   const [selectedAccidental, setAccidental] = useState<Accidental | null>(null);
   const [isWrong, setIsWrong] = useState<boolean>(false);
@@ -88,24 +89,15 @@ export default function NoteSelector(props: NoteSelectorProps) {
     return false;
   });
 
-  const index = (stringIndex + fret) % chromaticScale.length;
-  let notes = chromaticScale[index];
-
-  const match = notes.find(
+  const notes = chromaticScale[(stringIndex + fret) % chromaticScale.length];
+  const isMatch = notes.find(
     (note: Note) =>
       note.name === selectedName && note.accidental === selectedAccidental
   );
 
   useEffect(() => {
-    if (
-      (selectedName === Name.B && selectedAccidental === Accidental.SHARP) ||
-      (selectedName === Name.C && selectedAccidental === Accidental.FLAT) ||
-      (selectedName === Name.E && selectedAccidental === Accidental.SHARP) ||
-      (selectedName === Name.F && selectedAccidental === Accidental.FLAT)
-    ) {
-      setAccidental(null);
-    }
-  }, [selectedName, selectedAccidental]);
+    setAccidental(null);
+  }, [selectedName]);
 
   return (
     <div className={styles.container}>
@@ -157,9 +149,7 @@ export default function NoteSelector(props: NoteSelectorProps) {
         <Button
           active={selectedAccidental === Accidental.SHARP}
           disabled={selectedName === Name.B || selectedName === Name.E}
-          onClick={() => {
-            setAccidental(Accidental.SHARP);
-          }}
+          onClick={() => setAccidental(Accidental.SHARP)}
           title="Sharp"
         >
           &#9839;
@@ -167,18 +157,14 @@ export default function NoteSelector(props: NoteSelectorProps) {
         <Button
           active={selectedAccidental === Accidental.FLAT}
           disabled={selectedName === Name.C || selectedName === Name.F}
-          onClick={() => {
-            setAccidental(Accidental.FLAT);
-          }}
+          onClick={() => setAccidental(Accidental.FLAT)}
           title="Flat"
         >
           &#9837;
         </Button>
         <Button
           active={selectedAccidental === null}
-          onClick={() => {
-            setAccidental(null);
-          }}
+          onClick={() => setAccidental(null)}
           title="Natural"
         >
           &#9838;
@@ -188,7 +174,7 @@ export default function NoteSelector(props: NoteSelectorProps) {
         color={isWrong ? "danger" : "success"}
         disabled={selectedName === null}
         onClick={() => {
-          if (match) {
+          if (isMatch) {
             onNext();
             setSelectedName(null);
             setAccidental(null);
