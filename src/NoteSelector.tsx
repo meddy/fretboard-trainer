@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, ButtonGroup } from "reactstrap";
+import { Badge, Button, ButtonGroup } from "reactstrap";
 
 import styles from "./NoteSelector.module.css";
 
@@ -74,6 +74,7 @@ export default function NoteSelector(props: NoteSelectorProps) {
   const [selectedName, setSelectedName] = useState<Name | null>(null);
   const [selectedAccidental, setAccidental] = useState<Accidental | null>(null);
   const [isWrong, setIsWrong] = useState<boolean>(false);
+  const [score, setScore] = useState<number>(0);
 
   let stringNote = strings[string - 1];
   const stringIndex = chromaticScale.findIndex((notes) => {
@@ -179,12 +180,14 @@ export default function NoteSelector(props: NoteSelectorProps) {
             setSelectedName(null);
             setAccidental(null);
             setIsWrong(false);
+            setScore(score + 1);
           } else {
             setIsWrong(true);
           }
         }}
       >
-        Check
+        Check&nbsp;
+        <Badge color="primary">{score}</Badge>
       </Button>
     </div>
   );
