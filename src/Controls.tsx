@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Badge, Button, ButtonGroup, Progress } from "reactstrap";
+import { Badge, Button, ButtonGroup } from "reactstrap";
 
 import styles from "./Controls.module.css";
+import Timer from "./Timer";
 
 enum Name {
   A = "A",
@@ -71,8 +72,8 @@ const chromaticScale: Note[][] = [
 export default function Controls(props: ControlsProps) {
   const { string, fret, onNext } = props;
 
-  const [selectedName, setSelectedName] = useState<Name | null>(null);
-  const [selectedAccidental, setAccidental] = useState<Accidental | null>(null);
+  const [name, setName] = useState<Name | null>(null);
+  const [accidental, setAccidental] = useState<Accidental | null>(null);
   const [isWrong, setIsWrong] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
   const [started, setStarted] = useState<boolean>(false);
@@ -93,80 +94,58 @@ export default function Controls(props: ControlsProps) {
 
   const notes = chromaticScale[(stringIndex + fret) % chromaticScale.length];
   const isMatch = notes.find(
-    (note: Note) =>
-      note.name === selectedName && note.accidental === selectedAccidental
+    (note: Note) => note.name === name && note.accidental === accidental
   );
 
   useEffect(() => {
     setAccidental(null);
-  }, [selectedName]);
+  }, [name]);
 
   return (
     <div className={`mb-1 ${styles.container}`}>
       <div className="d-flex justify-content-center mb-1">
         <ButtonGroup className="mr-1">
-          <Button
-            active={selectedName === Name.A}
-            onClick={() => setSelectedName(Name.A)}
-          >
+          <Button active={name === Name.A} onClick={() => setName(Name.A)}>
             {Name.A}
           </Button>
-          <Button
-            active={selectedName === Name.B}
-            onClick={() => setSelectedName(Name.B)}
-          >
+          <Button active={name === Name.B} onClick={() => setName(Name.B)}>
             {Name.B}
           </Button>
-          <Button
-            active={selectedName === Name.C}
-            onClick={() => setSelectedName(Name.C)}
-          >
+          <Button active={name === Name.C} onClick={() => setName(Name.C)}>
             {Name.C}
           </Button>
-          <Button
-            active={selectedName === Name.D}
-            onClick={() => setSelectedName(Name.D)}
-          >
+          <Button active={name === Name.D} onClick={() => setName(Name.D)}>
             {Name.D}
           </Button>
-          <Button
-            active={selectedName === Name.E}
-            onClick={() => setSelectedName(Name.E)}
-          >
+          <Button active={name === Name.E} onClick={() => setName(Name.E)}>
             {Name.E}
           </Button>
-          <Button
-            active={selectedName === Name.F}
-            onClick={() => setSelectedName(Name.F)}
-          >
+          <Button active={name === Name.F} onClick={() => setName(Name.F)}>
             {Name.F}
           </Button>
-          <Button
-            active={selectedName === Name.G}
-            onClick={() => setSelectedName(Name.G)}
-          >
+          <Button active={name === Name.G} onClick={() => setName(Name.G)}>
             {Name.G}
           </Button>
         </ButtonGroup>
         <ButtonGroup>
           <Button
-            active={selectedAccidental === Accidental.SHARP}
-            disabled={selectedName === Name.B || selectedName === Name.E}
+            active={accidental === Accidental.SHARP}
+            disabled={name === Name.B || name === Name.E}
             onClick={() => setAccidental(Accidental.SHARP)}
             title="Sharp"
           >
             &#9839;
           </Button>
           <Button
-            active={selectedAccidental === Accidental.FLAT}
-            disabled={selectedName === Name.C || selectedName === Name.F}
+            active={accidental === Accidental.FLAT}
+            disabled={name === Name.C || name === Name.F}
             onClick={() => setAccidental(Accidental.FLAT)}
             title="Flat"
           >
             &#9837;
           </Button>
           <Button
-            active={selectedAccidental === null}
+            active={accidental === null}
             onClick={() => setAccidental(null)}
             title="Natural"
           >
@@ -181,11 +160,11 @@ export default function Controls(props: ControlsProps) {
               block
               className="mb-1"
               color={isWrong ? "danger" : "success"}
-              disabled={selectedName === null}
+              disabled={name === null}
               onClick={() => {
                 if (isMatch) {
                   onNext();
-                  setSelectedName(null);
+                  setName(null);
                   setAccidental(null);
                   setIsWrong(false);
                   setScore(score + 1);
@@ -197,7 +176,7 @@ export default function Controls(props: ControlsProps) {
               Check&nbsp;
               <Badge color="primary">{score}</Badge>
             </Button>
-            <Progress value={100} />
+            <Timer started onFinish={() => {}} />
           </>
         )}
         {!started && (
