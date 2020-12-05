@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Badge, Button, ButtonGroup } from "reactstrap";
 
 import styles from "./NoteSelector.module.css";
 
@@ -71,10 +70,8 @@ const chromaticScale: Note[][] = [
 export default function NoteSelector(props: NoteSelectorProps) {
   const { string, fret, onNext } = props;
 
-  const [selectedName, setSelectedName] = useState<Name | null>(null);
-  const [selectedAccidental, setAccidental] = useState<Accidental | null>(null);
-  const [isWrong, setIsWrong] = useState<boolean>(false);
-  const [score, setScore] = useState<number>(0);
+  const [name, setName] = useState<Name | null>(null);
+  const [accidental, setAccidental] = useState<Accidental | null>(null);
 
   let stringNote = strings[string - 1];
   const stringIndex = chromaticScale.findIndex((notes) => {
@@ -92,103 +89,113 @@ export default function NoteSelector(props: NoteSelectorProps) {
 
   const notes = chromaticScale[(stringIndex + fret) % chromaticScale.length];
   const isMatch = notes.find(
-    (note: Note) =>
-      note.name === selectedName && note.accidental === selectedAccidental
+    (note: Note) => note.name === name && note.accidental === accidental
   );
 
-  useEffect(() => {
+  const onNameClick = (name: Name) => () => {
+    setName(name);
     setAccidental(null);
-  }, [selectedName]);
+  };
+
+  useEffect(() => {
+    if (isMatch) {
+      onNext();
+      setName(null);
+      setAccidental(null);
+    }
+  }, [onNext, isMatch, name, accidental]);
 
   return (
     <div className={styles.container}>
-      <ButtonGroup className={styles["note-group"]}>
-        <Button
-          active={selectedName === Name.A}
-          onClick={() => setSelectedName(Name.A)}
-        >
+      <div>
+        <label>
+          <input
+            checked={name === Name.A}
+            onClick={onNameClick(Name.A)}
+            type="radio"
+          />
           {Name.A}
-        </Button>
-        <Button
-          active={selectedName === Name.B}
-          onClick={() => setSelectedName(Name.B)}
-        >
+        </label>
+        <label>
+          <input
+            checked={name === Name.B}
+            onClick={onNameClick(Name.B)}
+            type="radio"
+          />
           {Name.B}
-        </Button>
-        <Button
-          active={selectedName === Name.C}
-          onClick={() => setSelectedName(Name.C)}
-        >
+        </label>
+        <label>
+          <input
+            checked={name === Name.C}
+            onClick={onNameClick(Name.C)}
+            type="radio"
+          />
           {Name.C}
-        </Button>
-        <Button
-          active={selectedName === Name.D}
-          onClick={() => setSelectedName(Name.D)}
-        >
+        </label>
+        <label>
+          <input
+            checked={name === Name.D}
+            onClick={onNameClick(Name.D)}
+            type="radio"
+          />
           {Name.D}
-        </Button>
-        <Button
-          active={selectedName === Name.E}
-          onClick={() => setSelectedName(Name.E)}
-        >
+        </label>
+        <label>
+          <input
+            checked={name === Name.E}
+            onClick={onNameClick(Name.E)}
+            type="radio"
+          />
           {Name.E}
-        </Button>
-        <Button
-          active={selectedName === Name.F}
-          onClick={() => setSelectedName(Name.F)}
-        >
+        </label>
+        <label>
+          <input
+            checked={name === Name.F}
+            onClick={onNameClick(Name.F)}
+            type="radio"
+          />
           {Name.F}
-        </Button>
-        <Button
-          active={selectedName === Name.G}
-          onClick={() => setSelectedName(Name.G)}
-        >
+        </label>
+        <label>
+          <input
+            checked={name === Name.G}
+            onClick={onNameClick(Name.G)}
+            type="radio"
+          />
           {Name.G}
-        </Button>
-      </ButtonGroup>
-      <ButtonGroup>
-        <Button
-          active={selectedAccidental === Accidental.SHARP}
-          disabled={selectedName === Name.B || selectedName === Name.E}
-          onClick={() => setAccidental(Accidental.SHARP)}
-          title="Sharp"
-        >
+        </label>
+      </div>
+      <div>
+        <label>
+          <input
+            checked={accidental === Accidental.SHARP}
+            disabled={name === Name.B || name === Name.E}
+            onClick={() => setAccidental(Accidental.SHARP)}
+            title="Sharp"
+            type="radio"
+          />
           &#9839;
-        </Button>
-        <Button
-          active={selectedAccidental === Accidental.FLAT}
-          disabled={selectedName === Name.C || selectedName === Name.F}
-          onClick={() => setAccidental(Accidental.FLAT)}
-          title="Flat"
-        >
+        </label>
+        <label>
+          <input
+            checked={accidental === Accidental.FLAT}
+            disabled={name === Name.C || name === Name.F}
+            onClick={() => setAccidental(Accidental.FLAT)}
+            title="Flat"
+            type="radio"
+          />
           &#9837;
-        </Button>
-        <Button
-          active={selectedAccidental === null}
-          onClick={() => setAccidental(null)}
-          title="Natural"
-        >
+        </label>
+        <label>
+          <input
+            checked={accidental === null}
+            onClick={() => setAccidental(null)}
+            title="Natural"
+            type="radio"
+          />
           &#9838;
-        </Button>
-      </ButtonGroup>
-      <Button
-        color={isWrong ? "danger" : "success"}
-        disabled={selectedName === null}
-        onClick={() => {
-          if (isMatch) {
-            onNext();
-            setSelectedName(null);
-            setAccidental(null);
-            setIsWrong(false);
-            setScore(score + 1);
-          } else {
-            setIsWrong(true);
-          }
-        }}
-      >
-        Check&nbsp;
-        <Badge color="primary">{score}</Badge>
-      </Button>
+        </label>
+      </div>
     </div>
   );
 }
