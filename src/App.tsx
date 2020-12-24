@@ -23,7 +23,7 @@ function App() {
     <div className={styles.container}>
       <Fretboard {...position} />
       <NoteSelector
-        onNext={() => {
+        onMatch={() => {
           setPosition(randomNotePosition());
         }}
         {...position}

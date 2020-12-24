@@ -1,5 +1,6 @@
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
@@ -7,10 +8,6 @@
   margin-right: 0.5rem;
 }
 
-.container > * {
-  margin-right: 1vw;
-}
-
-.container > *:last-child {
-  margin-right: 0;
+.container label input {
+  margin-right: 0.5rem;
 }
