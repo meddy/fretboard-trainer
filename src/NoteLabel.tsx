@@ -17,7 +17,7 @@ export default function NoteLabel(props: NoteLabelProps) {
           {!!toneA.accidental && <sup>{toneA.accidental}</sup>}
         </var>
       )}
-      {!!toneB && " / "}
+      {!!toneB && "/"}
       {!!toneB && (
         <var key={`${toneB.name}-${toneB.accidental}`}>
           {toneB.name}

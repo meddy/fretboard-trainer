@@ -45,7 +45,7 @@ export default class Note {
   }
 
   static positionToNote(position: FretPosition): Note {
-    let openStringNote = strings[position.string - 1];
+    const openStringNote = strings[position.string - 1];
     const stringIndex = chromaticScale.findIndex((note) =>
       openStringNote.isEqual(note)
     );
