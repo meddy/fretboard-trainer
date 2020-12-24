@@ -1,3 +1,5 @@
+import { FretPosition } from "./FretPosition";
+
 export enum Name {
   A = "A",
   B = "B",
@@ -40,6 +42,16 @@ export default class Note {
       (acc, note) => (acc.length ? `${acc}-${note.name}` : note.name),
       ""
     );
+  }
+
+  static positionToNote(position: FretPosition): Note {
+    let openStringNote = strings[position.string - 1];
+    const stringIndex = chromaticScale.findIndex((note) =>
+      openStringNote.isEqual(note)
+    );
+    return chromaticScale[
+      (stringIndex + position.fret) % chromaticScale.length
+    ];
   }
 }
 
