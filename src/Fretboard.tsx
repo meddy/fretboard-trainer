@@ -2,10 +2,12 @@ import React from "react";
 import clsx from "clsx";
 
 import styles from "./Fretboard.module.css";
+import { FretPosition } from "./FretPosition";
+import Note from "./Note";
 
 interface FretboardProps {
-  string: number;
-  fret: number;
+  position: FretPosition;
+  showOctaves: boolean;
 }
 
 const rows = [1, 2, 3, 4, 5];
@@ -20,7 +22,9 @@ const inlays = [
 ];
 
 export default function Fretboard(props: FretboardProps) {
-  const { string, fret } = props;
+  const { position } = props;
+  const { string, fret } = position;
+  const mainNote = Note.positionToNote(position);
   return (
     <div className={styles.container}>
       <div className={styles.info}>
@@ -44,11 +48,18 @@ export default function Fretboard(props: FretboardProps) {
         </div>
       </div>
       <div className={styles.fretboard}>
-        {rows.map((row) =>
-          columns.map((column) => {
+        {rows.map((row) => {
+          return columns.map((column) => {
             const stringMatch = string === row || (string === 6 && row === 5);
             const match = fret === column && stringMatch;
             const key = `${row}-${column}`;
+
+            let note = Note.positionToNote({ string: row, fret: column });
+            let octave = !match && mainNote.isEqual(note);
+            if (row === 5) {
+              note = Note.positionToNote({ string: 6, fret: column });
+              octave = !match && mainNote.isEqual(note);
+            }
 
             // open string notes
             if (column === 0) {
@@ -84,6 +95,15 @@ export default function Fretboard(props: FretboardProps) {
                     })}
                   />
                 )}
+                {octave && (
+                  <div
+                    className={clsx({
+                      [styles.note]: true,
+                      [styles["sixth-string-note"]]: string === 6,
+                      [styles["octave-note"]]: octave,
+                    })}
+                  />
+                )}
                 {inlay && (
                   <div
                     className={clsx({
@@ -91,13 +111,12 @@ export default function Fretboard(props: FretboardProps) {
                       [styles["inlay-top"]]: row === 2,
                       [styles["inlay-bottom"]]: row === 4,
                     })}
-                    key={`${key}-inlay`}
                   />
                 )}
               </div>
             );
-          })
-        )}
+          });
+        })}
       </div>
     </div>
   );

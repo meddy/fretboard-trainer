@@ -77,6 +77,10 @@
   top: 50%;
 }
 
+.octave-note {
+  background: blue;
+}
+
 .info {
   display: flex;
   flex-direction: column;
