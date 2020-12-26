@@ -16,6 +16,10 @@
 
 .nut {
   background: black;
+}
+
+.nut:nth-last-child(-n+13) {
+  background: none;
   border-top: 1px solid black;
 }
 
@@ -40,12 +44,12 @@
 }
 
 /* Hide last fret displayed */
-:nth-of-type(13n) {
+.fret:nth-of-type(13n) {
   border-right: none;
 }
 
 /* Hide last row other than top border "string" */
-:nth-last-child(-n+13) {
+.fret:nth-last-child(-n+13) {
   background: none;
   border-left: none;
   border-right: none;

@@ -22,7 +22,7 @@ const inlays = [
 ];
 
 export default function Fretboard(props: FretboardProps) {
-  const { position } = props;
+  const { position, showOctaves } = props;
   const { string, fret } = position;
   const mainNote = Note.positionToNote(position);
   return (
@@ -86,7 +86,7 @@ export default function Fretboard(props: FretboardProps) {
                     })}
                   />
                 )}
-                {octave && (
+                {showOctaves && octave && (
                   <div
                     className={clsx({
                       [styles.note]: true,

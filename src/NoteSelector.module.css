@@ -4,6 +4,7 @@
   flex-wrap: wrap;
   font-family: monospace;
   justify-content: center;
+  margin-bottom: 1rem;
 }
 
 .container label {
