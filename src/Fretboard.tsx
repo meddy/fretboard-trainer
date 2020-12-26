@@ -52,10 +52,9 @@ export default function Fretboard(props: FretboardProps) {
           return columns.map((column) => {
             const stringMatch = string === row;
             const match = fret === column && stringMatch;
-            const key = `${row}-${column}`;
-
             const note = Note.positionToNote({ string: row, fret: column });
             const octave = !match && mainNote.isEqual(note);
+            const key = `${row}-${column}`;
 
             // open string notes
             if (column === 0) {

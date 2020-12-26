@@ -10,7 +10,7 @@ export default function NoteLabel(props: NoteLabelProps) {
   const { note } = props;
   const [toneA, toneB] = note.tones;
   return (
-    <>
+    <div>
       {!!toneA && (
         <var key={`${toneA.name}-${toneA.accidental}`}>
           {toneA.name}
@@ -24,6 +24,6 @@ export default function NoteLabel(props: NoteLabelProps) {
           {!!toneB.accidental && <sup>{toneB.accidental}</sup>}
         </var>
       )}
-    </>
+    </div>
   );
 }
