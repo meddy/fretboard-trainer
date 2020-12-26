@@ -1,7 +1,6 @@
 .container {
   align-items: center;
   display: flex;
-  margin-bottom: 1vw;
   width: 96vw;
 }
 
@@ -11,12 +10,13 @@
 
   /* https://www.stewmac.com/FretCalculator.html */
   grid-template-columns: 0.1fr 1.4fr 1.32fr 1.25fr 1.18fr 1.11fr 1.05fr 0.99fr 0.93fr 0.88fr 0.83fr 0.78fr 0.74fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
   height: fit-content;
 }
 
 .nut {
   background: black;
+  border-top: 1px solid black;
 }
 
 .fret {
@@ -39,12 +39,16 @@
   border-top: 1px solid black;
 }
 
-.fret:nth-of-type(13n) {
+/* Hide last fret displayed */
+:nth-of-type(13n) {
   border-right: none;
 }
 
-.fret:nth-of-type(n+53) {
-  border-bottom: 1px solid black;
+/* Hide last row other than top border "string" */
+:nth-last-child(-n+13) {
+  background: none;
+  border-left: none;
+  border-right: none;
 }
 
 .inlay {
@@ -87,8 +91,9 @@
   font-family: monospace;
   font-size: 1.5vw;
   justify-content: space-between;
-  line-height: 135%;
+  line-height: 145%;
   margin-right: 1vw;
+  margin-top: -2vw;
 }
 
 .info-note {

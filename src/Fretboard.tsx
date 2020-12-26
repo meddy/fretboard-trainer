@@ -10,7 +10,7 @@ interface FretboardProps {
   showOctaves: boolean;
 }
 
-const rows = [1, 2, 3, 4, 5];
+const rows = [1, 2, 3, 4, 5, 6];
 const columns = Array.from(Array(13).keys());
 const inlays = [
   { row: 2, column: 12 },
@@ -50,16 +50,12 @@ export default function Fretboard(props: FretboardProps) {
       <div className={styles.fretboard}>
         {rows.map((row) => {
           return columns.map((column) => {
-            const stringMatch = string === row || (string === 6 && row === 5);
+            const stringMatch = string === row;
             const match = fret === column && stringMatch;
             const key = `${row}-${column}`;
 
-            let note = Note.positionToNote({ string: row, fret: column });
-            let octave = !match && mainNote.isEqual(note);
-            if (row === 5) {
-              note = Note.positionToNote({ string: 6, fret: column });
-              octave = !match && mainNote.isEqual(note);
-            }
+            const note = Note.positionToNote({ string: row, fret: column });
+            const octave = !match && mainNote.isEqual(note);
 
             // open string notes
             if (column === 0) {
@@ -67,7 +63,6 @@ export default function Fretboard(props: FretboardProps) {
                 <div
                   className={clsx({
                     [styles.nut]: true,
-                    [styles.note]: match && fret !== 0,
                   })}
                   key={key}
                 />
@@ -82,8 +77,6 @@ export default function Fretboard(props: FretboardProps) {
                 className={clsx({
                   [styles.fret]: true,
                   [styles["open-note"]]: stringMatch && fret === 0,
-                  [styles["sixth-string-open-note"]]:
-                    stringMatch && string === 6 && fret === 0,
                 })}
                 key={key}
               >
@@ -91,7 +84,6 @@ export default function Fretboard(props: FretboardProps) {
                   <div
                     className={clsx({
                       [styles.note]: true,
-                      [styles["sixth-string-note"]]: string === 6,
                     })}
                   />
                 )}
@@ -99,7 +91,6 @@ export default function Fretboard(props: FretboardProps) {
                   <div
                     className={clsx({
                       [styles.note]: true,
-                      [styles["sixth-string-note"]]: string === 6,
                       [styles["octave-note"]]: octave,
                     })}
                   />
