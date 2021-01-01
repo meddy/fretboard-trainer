@@ -44,6 +44,21 @@ export default class Note {
     );
   }
 
+  getMajorScale() {
+    const noteIndex = chromaticScale.findIndex((note) => note.isEqual(this));
+    const length = chromaticScale.length;
+    return [
+      this,
+      chromaticScale[(noteIndex + 2) % length], // whole
+      chromaticScale[(noteIndex + 4) % length], // whole
+      chromaticScale[(noteIndex + 5) % length], // half
+      chromaticScale[(noteIndex + 7) % length], // whole
+      chromaticScale[(noteIndex + 9) % length], // whole
+      chromaticScale[(noteIndex + 11) % length], // whole
+      // ↵ half
+    ];
+  }
+
   static positionToNote(position: FretPosition): Note {
     const openStringNote = strings[position.string - 1];
     const stringIndex = chromaticScale.findIndex((note) =>

@@ -13,7 +13,7 @@ interface FretboardProps {
 const rows = [1, 2, 3, 4, 5, 6];
 const columns = Array.from(Array(13).keys());
 const inlays = [
-  { row: 2, column: 12 },
+  { row: 1, column: 12 },
   { row: 3, column: 3 },
   { row: 3, column: 5 },
   { row: 3, column: 7 },
@@ -25,6 +25,7 @@ export default function Fretboard(props: FretboardProps) {
   const { position, showOctaves } = props;
   const { string, fret } = position;
   const mainNote = Note.positionToNote(position);
+  const scale = mainNote.getMajorScale();
   return (
     <div className={styles.container}>
       <div className={styles.info}>
@@ -54,6 +55,8 @@ export default function Fretboard(props: FretboardProps) {
             const match = fret === column && stringMatch;
             const note = Note.positionToNote({ string: row, fret: column });
             const octave = !match && mainNote.isEqual(note);
+            const isScale =
+              !match && scale.find((scaleNote) => note.isEqual(scaleNote));
             const key = `${row}-${column}`;
 
             // open string notes
@@ -94,12 +97,19 @@ export default function Fretboard(props: FretboardProps) {
                     })}
                   />
                 )}
+                {isScale && !octave && false && (
+                  <div
+                    className={clsx({
+                      [styles.note]: true,
+                      [styles["scale-note"]]: true,
+                    })}
+                  />
+                )}
                 {inlay && (
                   <div
                     className={clsx({
                       [styles.inlay]: true,
-                      [styles["inlay-top"]]: row === 2,
-                      [styles["inlay-bottom"]]: row === 4,
+                      [styles["inlay-offset"]]: row === 1 || row === 4,
                     })}
                   />
                 )}

@@ -5,6 +5,7 @@
 }
 
 .fretboard {
+  background: saddlebrown;
   display: grid;
   flex: 1;
 
@@ -25,13 +26,14 @@
 
 .fret {
   align-items: center;
-  border-left: 2px solid black;
-  border-right: 2px solid black;
-  border-top: 1px solid black;
+  border-left: 2px solid darkgoldenrod;
+  border-right: 2px solid darkgoldenrod;
+  border-top: 1px solid darkgray;
   display: flex;
   height: 2vw;
   justify-content: center;
   position: relative;
+  z-index: 1;
 }
 
 .fret.open-note {
@@ -56,27 +58,23 @@
 }
 
 .inlay {
-  background: black;
+  background: linear-gradient(90deg, rgba(251,251,251,1) 0%, rgba(209,209,208,1) 100%);
   border-radius: 50%;
   height: 1.75vw;
   width: 1.75vw;
 }
 
-.inlay-top {
-  position: relative;
-  top: -50%;
-}
-
-.inlay-bottom {
+.inlay-offset {
   bottom: -50%;
   position: relative;
 }
 
 .note {
   background: red;
+  border-radius: 50%;
   height: 1.5vw;
   position: absolute;
-  top: -50%;
+  top: -40%;
   width: 1.5vw;
   z-index: 1;
 }
@@ -87,6 +85,10 @@
 
 .octave-note {
   background: blue;
+}
+
+.scale-note {
+  background: black;
 }
 
 .info {
