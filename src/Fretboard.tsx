@@ -10,15 +10,15 @@ interface FretboardProps {
   showOctaves: boolean;
 }
 
-const rows = [1, 2, 3, 4, 5, 6];
-const columns = Array.from(Array(13).keys());
+const rows = Array.from(Array(11).keys()); // 6 strings + 5 fretboard spaces
+const columns = Array.from(Array(24).keys()); // 11 frets + 5 fretboard spaces + nut
 const inlays = [
-  { row: 1, column: 12 },
-  { row: 3, column: 3 },
-  { row: 3, column: 5 },
-  { row: 3, column: 7 },
-  { row: 3, column: 9 },
-  { row: 4, column: 12 },
+  { row: 3, column: 23 },
+  { row: 5, column: 5 },
+  { row: 5, column: 9 },
+  { row: 5, column: 13 },
+  { row: 5, column: 17 },
+  { row: 9, column: 23 },
 ];
 
 export default function Fretboard(props: FretboardProps) {
@@ -26,6 +26,8 @@ export default function Fretboard(props: FretboardProps) {
   const { string, fret } = position;
   const mainNote = Note.positionToNote(position);
   const scale = mainNote.getMajorScale();
+  let currentString = 0;
+  let currentFret = 0;
   return (
     <div className={styles.container}>
       <div className={styles.info}>
@@ -50,35 +52,43 @@ export default function Fretboard(props: FretboardProps) {
       </div>
       <div className={styles.fretboard}>
         {rows.map((row) => {
+          currentFret = 0;
+          const isString = row % 2 === 0;
+          if (isString) {
+            currentString++;
+          }
           return columns.map((column) => {
-            const stringMatch = string === row;
-            const match = fret === column && stringMatch;
-            const note = Note.positionToNote({ string: row, fret: column });
-            const octave = !match && mainNote.isEqual(note);
-            const isScale =
-              !match && scale.find((scaleNote) => note.isEqual(scaleNote));
-            const key = `${row}-${column}`;
-
-            // open string notes
-            if (column === 0) {
-              return (
-                <div
-                  className={clsx({
-                    [styles.nut]: true,
-                  })}
-                  key={key}
-                />
-              );
+            const isFret = column % 2 === 0;
+            if (isFret) {
+              currentFret++;
             }
+            const isNut = column === 0;
+            // const note = isString
+            //   ? Note.positionToNote({
+            //       string: currentString,
+            //       fret: currentFret,
+            //     })
+            //   : null;
+            const match =
+              isString &&
+              !isFret &&
+              fret === currentFret &&
+              string === currentString;
+            const octave = false; //!match && mainNote.isEqual(note);
+            const isScale = false; //!match && scale.find((scaleNote) => note.isEqual(scaleNote));
+            const key = `${row}-${column}`;
 
             const inlay = inlays.find(
               (inlay) => row === inlay.row && column === inlay.column
             );
+
             return (
               <div
                 className={clsx({
-                  [styles.fret]: true,
-                  [styles["open-note"]]: stringMatch && fret === 0,
+                  [styles.string]: isString,
+                  [styles.nut]: isNut && !isString,
+                  [styles.fret]: isFret && !isNut && !isString,
+                  [styles.wood]: !isFret && !isNut && !isString,
                 })}
                 key={key}
               >
@@ -89,7 +99,7 @@ export default function Fretboard(props: FretboardProps) {
                     })}
                   />
                 )}
-                {showOctaves && octave && (
+                {showOctaves && octave && false && (
                   <div
                     className={clsx({
                       [styles.note]: true,
@@ -109,7 +119,7 @@ export default function Fretboard(props: FretboardProps) {
                   <div
                     className={clsx({
                       [styles.inlay]: true,
-                      [styles["inlay-offset"]]: row === 1 || row === 4,
+                      [styles["inlay-offset"]]: row !== 5,
                     })}
                   />
                 )}

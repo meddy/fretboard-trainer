@@ -10,8 +10,8 @@
   flex: 1;
 
   /* https://www.stewmac.com/FretCalculator.html */
-  grid-template-columns: 0.1fr 1.4fr 1.32fr 1.25fr 1.18fr 1.11fr 1.05fr 0.99fr 0.93fr 0.88fr 0.83fr 0.78fr 0.74fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 0.1fr 1.4fr 2px 1.32fr 2px 1.25fr 2px 1.18fr 2px 1.11fr 2px 1.05fr 2px 0.99fr 2px 0.93fr 2px 0.88fr 2px 0.83fr 2px 0.78fr 2px 0.74fr;
+  grid-template-rows: 1px 1fr 1px 1fr 1px 1fr 1px 1fr 1px 1fr 1px;
   height: fit-content;
 }
 
@@ -19,16 +19,8 @@
   background: black;
 }
 
-.nut:nth-last-child(-n+13) {
-  background: none;
-  border-top: 1px solid black;
-}
-
-.fret {
+.wood {
   align-items: center;
-  border-left: 2px solid darkgoldenrod;
-  border-right: 2px solid darkgoldenrod;
-  border-top: 1px solid darkgray;
   display: flex;
   height: 2vw;
   justify-content: center;
@@ -36,47 +28,36 @@
   z-index: 1;
 }
 
-.fret.open-note {
-  border-top: 1px solid red;
+.fret {
+  background: darkgoldenrod;
 }
 
-.fret.sixth-string-open-note {
-  border-bottom: 1px solid red !important;
-  border-top: 1px solid black;
-}
-
-/* Hide last fret displayed */
-.fret:nth-of-type(13n) {
-  border-right: none;
-}
-
-/* Hide last row other than top border "string" */
-.fret:nth-last-child(-n+13) {
-  background: none;
-  border-left: none;
-  border-right: none;
+.string {
+  background: darkgray;
+  position: relative;
+  z-index: 2;
 }
 
 .inlay {
-  background: linear-gradient(90deg, rgba(251,251,251,1) 0%, rgba(209,209,208,1) 100%);
+  background: linear-gradient(90deg, rgba(251, 251, 251, 1) 0%, rgba(209, 209, 208, 1) 100%);
   border-radius: 50%;
   height: 1.75vw;
   width: 1.75vw;
 }
 
 .inlay-offset {
-  bottom: -50%;
   position: relative;
+  top: -1vw;
 }
 
 .note {
   background: red;
   border-radius: 50%;
   height: 1.5vw;
-  position: absolute;
-  top: -40%;
+  margin: 0 auto;
+  position: relative;
+  top: -0.5vw;
   width: 1.5vw;
-  z-index: 1;
 }
 
 .sixth-string-note {
@@ -99,7 +80,6 @@
   justify-content: space-between;
   line-height: 145%;
   margin-right: 1vw;
-  margin-top: -2vw;
 }
 
 .info-note {
